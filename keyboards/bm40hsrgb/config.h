@@ -50,3 +50,5 @@
 #ifdef RGB_DI_PIN
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #endif
+
+#define PREVENT_STUCK_MODIFIERS
