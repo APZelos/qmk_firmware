@@ -26,7 +26,6 @@ enum layers { _BASE = 0, _SYM, _NUM, _NAV, _FUN };
 
 #define CTL_ESC MT(MOD_LCTL, KC_ESC)
 #define CTL_ENT MT(MOD_RCTL, KC_ENT)
-
 #define OS_RSFT OSM(MOD_RSFT)
 
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
