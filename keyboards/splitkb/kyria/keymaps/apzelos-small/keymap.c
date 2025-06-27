@@ -18,8 +18,35 @@
 enum layers { _BASE = 0, _SYM, _NUM, _NAV, _FUN };
 
 enum my_keycodes {
-  UNDER = SAFE_RANGE
+  UNDER = SAFE_RANGE,
+  SMTD_KEYCODES_BEGIN = SAFE_RANGE,
+// HOME ROW MODS
+// Left-hand home row mods
+  GUI_S,
+  ALT_D,
+  CTL_F,
+
+  GUI_UND,
+  ALT_LPR,
+  CTL_RPR,
+
+  GUI_MNS,
+  ALT_PLS,
+  CTL_EQL,
+
+// Right-hand home row mods
+  CTL_J,
+  ALT_K,
+  GUI_L,
+
+  CTL_QOT,
+  ALT_PPE,
+  GUI_AMP,
+
+  SMTD_KEYCODES_END,
 };
+
+#include "sm_td.h"
 
 #define SYM OSL(_SYM)
 #define NUM OSL(_NUM)
@@ -34,30 +61,39 @@ enum my_keycodes {
 
 #define OS_RSFT OSM(MOD_RSFT)
 
-// HOME ROW MODS
-// Left-hand home row mods
-#define GUI_S LGUI_T(KC_S)
-#define ALT_D LALT_T(KC_D)
-#define CTL_F LCTL_T(KC_F)
+void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
+    switch (keycode) {
+        // HOME ROW MODS
+        // Left-hand home row mods
+        SMTD_MT(GUI_S, KC_S, KC_LEFT_GUI)
+        SMTD_MT(ALT_D, KC_D, KC_LEFT_ALT)
+        SMTD_MT(CTL_F, KC_F, KC_LEFT_CTRL)
 
-#define GUI_UND LGUI_T(UNDER)
-#define ALT_LPR LALT_T(KC_LPRN)
-#define CTL_RPR LCTL_T(KC_RPRN)
+        SMTD_MT(GUI_UND, UNDER, KC_LEFT_GUI)
+        SMTD_MT(ALT_LPR, KC_LPRN, KC_LEFT_ALT)
+        SMTD_MT(CTL_RPR, KC_RPRN, KC_LEFT_CTRL)
 
-#define GUI_MNS LGUI_T(KC_MINS)
-#define ALT_PLS LALT_T(KC_PLUS)
-#define CTL_EQL LCTL_T(KC_EQL)
+        SMTD_MT(GUI_MNS, KC_MINS, KC_LEFT_ALT)
+        SMTD_MT(ALT_PLS, KC_PLUS, KC_LEFT_ALT)
+        SMTD_MT(CTL_EQL, KC_EQL, KC_LEFT_CTRL)
 
-// Right-hand home row mods
-#define CTL_J RCTL_T(KC_J)
-#define ALT_K LALT_T(KC_K)
-#define GUI_L RGUI_T(KC_L)
+        // Right-hand home row mods
+        SMTD_MT(CTL_J, KC_J, KC_RIGHT_CTRL)
+        SMTD_MT(ALT_K, KC_K, KC_RIGHT_ALT)
+        SMTD_MT(GUI_L, KC_L, KC_RIGHT_GUI)
 
-#define CTL_QOT RCTL_T(KC_QUOT)
-#define ALT_PPE LALT_T(KC_PIPE)
-#define GUI_AMP RGUI_T(KC_AMPR)
+        SMTD_MT(CTL_QOT, KC_QUOT, KC_RIGHT_CTRL)
+        SMTD_MT(ALT_PPE, KC_PIPE, KC_RIGHT_ALT)
+        SMTD_MT(GUI_AMP, KC_AMPR, KC_RIGHT_GUI	)
+
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_smtd(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
         case LGUI_T(KC_MINS):
             if (record->tap.count && record->event.pressed) {
