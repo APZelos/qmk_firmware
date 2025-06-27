@@ -94,6 +94,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+        case LALT_T(KC_PIPE):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_PIPE);
+                return false;
+            }
+            break;
+
         case RGUI_T(KC_AMPR):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_AMPR);
@@ -172,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |        |        |        |        |        |        |        |        |  |        |        |        |        |        |        |        |        |
      _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______, _______,
 /* `--------------------------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------+--------' */
-//                            | ALT    | L CND  | NUM LR | SAPCE  | NAV LR |  |        | SYM LR | R SHIFT| R CMD  | ALT    |
-                                _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
+//                            | ALT    | L CND  | NUM LR | SAPCE  | NAV LR |  |        | N/A    | R SHIFT| R CMD  | ALT    |
+                                _______, _______, _______, _______, _______,    _______, KC_NO  , _______, _______, _______
 /*                            `--------------------------------------------'  `--------------------------------------------'                            */
     ),
 
